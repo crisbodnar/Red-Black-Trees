@@ -13,19 +13,23 @@ package javaapplication1;
 public class RedBlackTree 
 {
     public Node root, nil;
+    private String sorted = "";
     
     private final int RED = 1;
     private final int BLACK = 0;
     
     public RedBlackTree()
     {
-        root = nil = null;
+        root = new Node();
+        nil = new Node();
+        nil.color = BLACK;
+        root = nil;
     }
     
     private void insertFixup(Node z)
     {
         //While the red black tree property is broken
-        while(z.p.color == 1)
+        while(z.p.color == RED)
         {
             if(z.p == z.p.p.left)
             {
@@ -77,7 +81,8 @@ public class RedBlackTree
                     leftRotate(z.p.p);
                 }
             }
-        }
+        } //end of while
+        this.root.color = BLACK;
     }
     
     public void insert(int key)
@@ -85,7 +90,7 @@ public class RedBlackTree
         //Create a new node to which the key is assigned
         //The code is initially red (1)
         Node z = new Node();
-        z.color = 1;
+        z.color = RED;
         z.key = key;
         
         //Insert the node
@@ -122,6 +127,22 @@ public class RedBlackTree
     public void delete(int key)
     {
         
+    }
+    
+    private void inOrder(Node x)
+    {
+        if(x == this.nil) return;
+        
+        inOrder(x.left);
+        sorted += " " + x.key;
+        inOrder(x.right);
+    }
+    
+    @Override
+    public String toString()
+    {
+        inOrder(this.root);  
+        return sorted;
     }
     
     //Execute a left rotation in the BlackTree where node x is the parent

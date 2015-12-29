@@ -12,11 +12,11 @@ package javaapplication1;
 public class Node 
 {
    public Node p, left, right;
-   public int c, key;
+   public int color, key;
    
    public Node()
    {
        p = left = right = null;
-       c = key = -1;
+       color = key = -1;
    }
 }
